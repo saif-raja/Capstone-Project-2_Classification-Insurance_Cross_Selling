@@ -37,10 +37,22 @@ Comparing both F1 and AUC-ROC Score , we can see that Random Forrest and  XGBoos
 
 
 ### Python Libraries used
+Datawrangling : 
+* Numpy
+* Pandas
+
 For Graphing : 
 * Matplotib
 * Seaborn 
-* Scikit-learn
+
+Machine learning :
+* Scikit-Learn
+* SK-Opt
+* XGBoost
+* CatBoost
+
+Miscellaneous :
+* Google colab tools
 
 
 ## Getting Started
