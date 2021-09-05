@@ -1,7 +1,4 @@
 # AlmaBetter EDA Capstone Project 2 - Classification : Insurance Cross-Selling
-Change this description HERE
-
-
 
 
 This project is a part of the [AlmaBetter Premium Program](https://www.almabetter.com/) , Banglore/Bengaluru ,Karnataka , India
@@ -9,35 +6,34 @@ This project is a part of the [AlmaBetter Premium Program](https://www.almabette
 #### -- Project Status: [Completed]
 
 ## Project Summary :
-#### About the Dataset :
-We are provided with a dataset  named World Bank EdStats that contains 4000 indicators describing education access(primary, vocational and tertiary), progression, literacy, teacher, population etc. 
-
-The World Bank is an international financial institution which provides monetary assistance to governments of low and middle countries for socio-economic development. Each year, the World Bank collects various statistics through international statistical communities and globally coordinated programs to monitor the growth and progress of various economies. 
-
 #### Problem Statement : 
-We were provided with 5 datasets and asked to find insights and trends for different groups of countries and come up with a rough estimate as to which countries are alike and which are dissimilar.
+The task is to use existing Health and Vehicle Insurance Customer Data to predict whether the any new Customers are open to purchasing Vehicle Insurance from this company .
+
+
+#### About the Data :
+We have the data of existing Health Insurance Customers , this Data includes 12 relevant data points such as age, gender, sales channel data, vehicle ownership data. 
+And most importantly , the target variable : whether the customer has vehicle insurance or not . The Data is available for 390K existing customers .
+
 
 #### Approach taken :
-The idea of the project is to analyze the data and mark the variation of indicators across the globe, and also group the countries according to their similarities and differences.
+The task was divided into 2 main parts :
+1.Statistical Analysis over the dataset to discover relationships between each feature and the target variable . So that this relationship information can be used by the management in making better Business decisions
+2.Creating a Machine Learning Pipeline , that can take in the data of any new customer and predict whether they will be interested in vehicle insurance . It was required to kepp this pipeline modular , such that it can be retrained often when new data is collected
 
-#### Insights from exploring the Data :
-From the BRICS countries, we can conclude that the populations of India and China showed growth over the years, with India’s growth rate overtaking China’s after the 2000s.
-India’s pre-primary and tertiary enrollment percentage is pretty low when compared to other BRICS countries, but increasing from 1995.
-The mortality rate has dropped for every country, the highest drop being observed in India, where more focus was laid on education over the years .
-Immigration in USA from 1990-2000 increased the population growth rate for that 10-yr time period
-The countries having the highest drop-out rate affected the GNI per capita for those countries
 
-#### Challenges faced:
-It was very challenging to completely understand the data and to comprehend the relevance of each CSV file 
-As the percentage of missing data was huge, it took a lot of effort to decide on the final data to keep for analysis
-Filtering out the best indicators from 3700 indicators to keep for analysis
-Deciding on the set of countries to work based on economy and geography
+#### Technical Details for ML : We trained 5 Different Algorithms 
+( Logistic Regression , K-Nearest Neighbors , Random Forest , XGBoost and CatBoost )
+We used GridSearchCV and BayesSearchCV for HyperParameter Tuning
+Comparing both F1 and AUC-ROC Score , we can see that Random Forrest and  XGBoost model performs the best . Best AUC-ROC = 0.86 , Best F1=0.44
 
-#### Future scope of work:
-Working out on Top European powers and compare their positions based on different indicators
-Considering the amount of indicators in the data, if we dig deep enough, various micro trends can be unearthed, which we were not able to extensively cover during this short duration.
-This dataset can also be used to measure compensation of teachers, if we are to advise the education ministry on management of funds.
-Learning Assessment Indicators for Mathematics and Science can be used to predict populations that tend to have a knack for technology.
+
+#### Conclusions : Insights from exploring the Data :
+● Customers of age between 30 and 70 are more likely to buy insurance.
+● Customers with Driving Licence have higher chance of buying Insurance.
+● Customers with Vehicle Damage are more likely to buy insurance.
+● Customers with Vehicle age between 1 and 2 years are more likely to interested.
+● Customer who are not insured previously are more likely to be interested.
+
 
 
 ### Python Libraries used
@@ -57,27 +53,77 @@ For Graphing :
 
 ## The Structure of the main IPYNB notebook :
 
-* Initial Library imports 
+* About this Project
+* Problem Statement
+* Bussiness Goal
+* Approach Taken in this Project
+  * Understanding the given Data
 
-* Exploring File : main_data.csv
-  * Reading data and exploring which columns are necessary
-  * Removing Rows which are Empty
-  * Understanding the availability of Data for each Year
-  * Both before and after cleaning with Bar Plots
+* Initial Code : Initliaing the Data and Modules
+  * Installing and Importing Libraries
+  * Import Dataset and Initial Data Checks
 
+* Data Preparation and Cleaning
+* Exploratory Data Analysis
+  * Initial Macro-Level Data Analysis
+  * Variable wise EDA
+    * Target Variable (Response)
+    * Age variable
+    * Annual_Premium
+    * Gender variable
+    * Driving License
+    * Previously Insured
+    * Vehicle Age
+    * Vechicle damage
+    * Vintage
+    * Region Code
+    * Policy Sales Channel
+  * Correlation Plot for Numeric Features
+* Data Preprocessing and Feature Engineering
+	* Outlier Treatment in feature : Annual_Premium
+	* Label Encoding
+	* Target Mean Encoding
+	* Cleaned Data Exporting
 
-* Utility Function : Comparative analysis
-  * get_pivot_similiarity():
-  * this function takes two countries as an input and calculates how similar they are based on all available indicators , from 1970 to 2015
+* Building Prediction Systems using ML Models
+	* Import cleaned final data
+	* Classifier Performance Reporting Function
+		* Overfitting Underfitting Debugging Notes
+		* Metrics to be used during HyperParameter
+		* Random Forrest Specific Cutom Defined Metrics
+		* Function Definations for Analytics report generation
 
-* Utility Function for full Report Generation 
-  * generate_report():
-  * This function takes a list of countries and one indicator as Input 
+	* Logistic Regression Classifier Algorithm
+		* LR Classifier Generator Function
+		* LR Hyper Parameter Tuning : GridSearch
+		* Final Logistic Regression Training run
+	* K Nearest Neighbours Classifier Algorithm
+		* Default Parameters : KNeighborsClassifier
+		* KNN Model Generator Funciton
+		* KNN Hyper Parameter Tuning : GridSearch
+		* Final KNN Training run
+	* Random Forrests of Decsision Trees
+		* Default Parameters : RandomForestClassifier
+		* Base Estimator Generator Function
+		* HyperParameter tuning using GridSearchCV
+		* Final Training Run
+	* Gradient Boosted Trees using XGBoost Library
+		* XGBoost algorithn training and tuning notes
+		* XGBoost Estimator Instance Generator Function
+		* HyperParameter tuning using BayesSearchCV
+		* Final Training Run for XGBoost
+		* Feature Importance
+	* Categorical Gradient Boosted Trees using CatBoost Library
+		* Cleaning Raw Data with Categorical Encoding
+		* CatBoost Estimator Instance Generator Function
+		* Model Evaluation
+		* Final Training Run for CatBoost
+		* Feature Importance
 
-* Case Study : BRICS Countries : 
-  * Hypothesis description
-  * hypothesis testing
-  * hypothesis conclusion
+* Inferences and Conclusions
+* What Worked? What Did Not Work?
+* Future Work and More Ideas to Explore
+	* Custom Metric , based on Cost of approaching te customer , so as to create
 
 
 
